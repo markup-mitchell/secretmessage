@@ -4,11 +4,16 @@ import styled from 'styled-components';
 const StyledButton=styled.button`
   margin: 5px;
   width: 50px;
-  height: 100px;
-  border-radius: 10%;
-  background: #aaa;
+  height: 70px;
+  border-radius: 25%;
+  background: ${props=>props.open ? '#9f6' : '#aaa'};
+  transition: all .5;
   font-size: 50px;
   color: white;
+  border: none;
+  :focus{
+    outline: none;
+    }
 `
 
 export default class CombiButton extends React.Component{
@@ -35,6 +40,7 @@ export default class CombiButton extends React.Component{
   render(){
     return (
       <StyledButton
+        open={this.state.open}
         onClick={this.increment}
       >
         {this.state.number}
