@@ -34,11 +34,16 @@ export default class CombiButton extends React.Component{
 
   increment=()=> {
     this.setState(prevState => ({number: this.state.number > 8 ? 0 : prevState.number+1}), this.flipLock);
+    this.props.update();
   }
 
   flipLock=()=> {
     this.setState({open: this.state.number==this.props.tumbler});
   }
+
+    componentDidMount(){
+        this.props.update();
+    }
 
   render(){
     return (
