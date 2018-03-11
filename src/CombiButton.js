@@ -6,9 +6,9 @@ const StyledButton=styled.button`
         background: ${props=>props.open ? '#7d4' : '#888'};
         };
   margin: 5px;
-  width: 50px;
+  width: 70px;
   height: 70px;
-  border-radius: 25%;
+  border-radius: 10%;
   background: ${props=>props.open ? '#9f6' : '#aaa'};
   transition: all .5;
   font-size: 50px;
@@ -29,21 +29,22 @@ export default class CombiButton extends React.Component{
   }
 
   componentWillMount(){
-    this.setState({open: this.props.tumbler == this.state.number})
+    this.setState({open: this.props.tumbler == this.state.number}),this.reportStatus();
   }
 
   increment=()=> {
-    this.setState(prevState => ({number: this.state.number > 8 ? 0 : prevState.number+1}), this.flipLock);
-    this.props.update();
+      this.setState(prevState => ({number: this.state.number > 8 ? 0 : prevState.number+1}),this.flipLock);
   }
 
-  flipLock=()=> {
-    this.setState({open: this.state.number==this.props.tumbler});
-  }
-
-    componentDidMount(){
-        this.props.update();
+    reportStatus(){
+        this.props.update(this.state.open, this.props.id);
     }
+
+    // Q: how to call reportstatus so that everything's in sync?
+    // A: need to have callback ()=>{} to fire immediately
+  flipLock=()=> {
+      this.setState({open: this.state.number==this.props.tumbler},()=>{this.reportStatus()});
+  }
 
   render(){
     return (
