@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import CombiButton from './CombiButton';
+import ButtonBox from './ButtonBox.js';
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
-      complexity: 3,
+      complexity: 5,
       combination: null,
       tumblers: [],
+      message: "Stuffcluster",
     }
   }
 
@@ -22,10 +24,18 @@ class App extends Component {
     const combination = Array(complexity).fill().map((e)=>this.randomVal());
     this.setState({combination});
   }
+
+  updateTumblers=(e)=> {
+    console.log('bum');
+  }
+
   render() {
     return (
       <div className="App">
-        {this.state.combination.map((value,index) => <CombiButton key={index} tumbler={value} />)}
+        <h1>{this.state.message}</h1>
+        <ButtonBox 
+          {...this.state} 
+          update={this.updateTumblers} />
       </div>
     );
   }

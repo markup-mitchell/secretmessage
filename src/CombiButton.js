@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton=styled.button`
+    &:hover {
+        background: ${props=>props.open ? '#7d4' : '#888'};
+        };
   margin: 5px;
   width: 50px;
   height: 70px;
@@ -40,10 +43,11 @@ export default class CombiButton extends React.Component{
   render(){
     return (
       <StyledButton
-        open={this.state.open}
-        onClick={this.increment}
-      >
-        {this.state.number}
+          id={this.props.id}
+          open={this.state.open}
+          onClick={this.increment}
+        >
+            {this.state.number}
       </StyledButton>
     )
   }
