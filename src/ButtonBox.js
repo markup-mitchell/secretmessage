@@ -3,6 +3,7 @@ import CombiButton from './CombiButton';
 
 const StyledDiv = styled.div`
     display: flex;
+    flex-wrap: wrap;
 `
 
 const ButtonBox = (props) => {

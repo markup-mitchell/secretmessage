@@ -9,12 +9,13 @@ import Message from './Message';
 // button styling should be a condition of its open status so that even if you flip the bool in devtools it will change
 // fix starting bools
 // ability to change complexity in app - lifecycle
+// timer to completion
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
-      complexity: 7,
+      complexity: 6,
       combination: null,
       tumblers: [],
       message: "Stuffcluster",
@@ -26,19 +27,21 @@ class App extends Component {
   }
 
   componentWillMount(){
+    // from complexity int
     const complexity = this.state.complexity;
+    // generate an array of random digits
     const combination = Array(complexity).fill().map((e)=>this.randomVal());
-    // below is hacky placeholder - derive proper bools!
-    // move this logic to buttonBox?
-    this.setState({combination, tumblers: combination});
-
+    // set them as the solution and make an array of booleans - if 0 status starts as true
+    const initialStatus = combination.map(startValue => { return startValue===0 ? true : false } );
+    this.setState({combination, tumblers: initialStatus});
   }
 
   updateTumblers=(status,index)=> {
-    let newArray = this.state.tumblers.slice(); //return new array
-    newArray.splice(index, 1, status);
+    let newArray = this.state.tumblers.slice(); // return new array
+    newArray.splice(index, 1, status); // splice CombiButton status at relevant index
     this.setState({tumblers: newArray});
   }
+
   addComplexity=(e)=>{
     const buttons = e.target.value;
     this.setState({complexity: buttons})
