@@ -7,7 +7,6 @@ import Message from './Message';
 
 // TODO
 // button styling should be a condition of its open status so that even if you flip the bool in devtools it will change
-// fix starting bools
 // ability to change complexity in app - lifecycle
 // timer to completion
 
@@ -18,8 +17,45 @@ class App extends Component {
       complexity: 6,
       combination: null,
       tumblers: [],
+      taunts: [
+        "Go! Go! Go!",
+        "Faster! Come on!",
+        "Pick it up!",
+        "Is this the best you can do?!",
+        "Goodness me...",
+        "What's wrong with you?",
+        "Embarrassing performance",
+        "You might as well give up",
+        "I'm blushing for you...",
+        "Pfffft! Sorry...",
+        "LOL! Pathetic!",
+        "I have better things to do...",
+        "So long!",
+        " ",
+        "That was a pun, BTW"],
+      currentTaunt: 0,
       message: "Stuffcluster",
+      timeElapsed: 0,
+      timerIsRunning: true
     }
+  }
+
+  tick=()=> {
+    this.setState({timeElapsed: this.state.timeElapsed+1})
+  }
+
+  taunt=()=> {
+    this.state.timeElapsed % 5 === 0 ?
+      this.setState({currentTaunt: this.state.currentTaunt+1})
+    :
+      null;
+  }
+
+  updateTime=()=>{
+    this.state.timerIsRunning ? 
+      setInterval(() => this.tick(), 10)
+      :
+      null
   }
 
   randomVal=()=>{
@@ -36,9 +72,16 @@ class App extends Component {
     this.setState({combination, tumblers: initialStatus});
   }
 
+   componentDidMount(){
+     this.updateTime();
+   }
+
   updateTumblers=(status,index)=> {
-    let newArray = this.state.tumblers.slice(); // return new array
-    newArray.splice(index, 1, status); // splice CombiButton status at relevant index
+    // create new array becuause splice mutates
+    let newArray = this.state.tumblers.slice();
+    // splice CombiButton status boolean at relevant index
+    newArray.splice(index, 1, status);
+    // update state
     this.setState({tumblers: newArray});
   }
 
@@ -50,14 +93,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.tumblers.every(status => status===true) ? 
+        {this.state.tumblers.every(status => status===true) ?
             <Message />
             :
-            <h1>Unbreakable Combination</h1>
+            <h1>{this.state.taunts[Math.floor((this.state.timeElapsed)/500).toString()]}</h1>
         }
-        <ButtonBox 
-          {...this.state} 
+        <ButtonBox
+          {...this.state}
           update={this.updateTumblers} />
+        <h1>{(this.state.timeElapsed/100).toFixed(2)}</h1>
       </div>
     );
   }
