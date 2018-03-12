@@ -4,9 +4,11 @@ import ButtonBox from './ButtonBox.js';
 import Timer from './Timer.js';
 
 // TODO
-// button styling should be a condition of its open status so that even if you flip the bool in devtools it will change
-// ability to change complexity in app - lifecycle
+// set number of buttons in app
 // stop timer on last button change
+// 0 selected on start bug
+// extract messages to components
+// DRY the time format parsing
 
 const StyledApp = styled.div`
     width: 100vw;
@@ -94,13 +96,15 @@ class App extends Component {
                 <h1>{this.state.taunts[Math.floor((this.state.timeElapsed)/500).toString()]}</h1>
                 }
                 <ButtonBox {...this.state}
-                    update={this.updateTumblers} 
+                    update={this.updateTumblers}
                 />
-                {this.state.tumblers.every(status => status===true) 
+                {this.state.tumblers.every(status => status===true)
                 ?
+                        <div>
                 <h1>You found it in <span style={{color: "#7d4"}}>
                         {(this.state.timeElapsed/100).toFixed(2)}
                     </span> seconds</h1>
+                </div>
                 :
                 <Timer
                     tick={this.tick}

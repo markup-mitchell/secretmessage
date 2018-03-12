@@ -10,7 +10,7 @@ const ButtonBox = (props) => {
     return (
         <StyledDiv>
             {props.combination.map((value,index) => (
-                <CombiButton 
+                <CombiButton
                     update={props.update}
                     key={index}
                     id={index}
