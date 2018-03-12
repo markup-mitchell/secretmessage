@@ -29,7 +29,7 @@ export default class CombiButton extends React.Component{
   }
 
   componentWillMount(){
-    this.setState({open: this.props.tumbler == this.state.number}),this.reportStatus();
+    this.setState({open: this.props.tumbler === this.state.number}),this.reportStatus();
   }
 
   increment=()=> {

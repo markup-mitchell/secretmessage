@@ -24,7 +24,7 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      complexity: 8,
+      complexity: 3,
       combination: null,
       tumblers: [],
       taunts: [
