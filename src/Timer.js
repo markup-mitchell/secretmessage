@@ -2,9 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default class extends React.Component{
+    constructor(){
+        super();
+        this.state = {}
+    }
 
   updateTime(){
-      const timer=setInterval(() => this.props.tick(), 10)
+      const intervalId = setInterval(() => this.props.tick(), 10);
+      this.setState({intervalId});
   }
 
    componentDidMount(){
@@ -12,7 +17,7 @@ export default class extends React.Component{
    }
 
     componentWillUnmount(){
-        clearInterval(this.timer);
+        clearInterval(this.state.intervalId);
     }
 
     render(){
