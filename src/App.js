@@ -98,11 +98,9 @@ class App extends Component {
                 />
                 {this.state.tumblers.every(status => status===true) 
                 ?
-                <h1>You found it in 
-                    <span style={{color: "#7d4"}}>
+                <h1>You found it in <span style={{color: "#7d4"}}>
                         {(this.state.timeElapsed/100).toFixed(2)}
-                    </span> 
-                seconds</h1>
+                    </span> seconds</h1>
                 :
                 <Timer
                     tick={this.tick}
